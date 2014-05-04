@@ -28,8 +28,8 @@ GameState.prototype.create = function() {
   ]);
   // Movement constants
   this.MAX_SPEED = 250;
-  this.ACCELERATION = 300;
-  this.DRAG = 500;
+  this.ACCELERATION = 350;
+  this.DRAG = 750;
   this.GRAVITY = 670;
   this.JUMP_SPEED = -350;
   game.physics.arcade.gravity.y = this.GRAVITY;
@@ -42,14 +42,7 @@ GameState.prototype.create = function() {
     groundBlock.body.allowGravity = false;
     this.ground.add(groundBlock);
   }
-  // Create player
-  this.player = this.game.add.sprite((this.game.width/2) - 24, this.game.height - 146, 'player');
-  this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
-  this.player.body.allowGravity = true; 
-  this.player.body.collideWorldBounds = true;
-  this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10);
-  this.player.body.drag.setTo(this.DRAG, 0);
-
+  
 
   this.game.time.advancedTiming = true;
   this.fpsText = this.game.add.text(
@@ -113,6 +106,16 @@ GameState.prototype.create = function() {
     blockRedFill.body.checkCollision.up = false;
     this.blockRedFill.add(blockRedFill);
   }
+
+  // Create player
+  this.player = this.game.add.sprite((this.game.width/2) - 24, this.game.height - 146, 'player');
+  this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
+  this.player.body.allowGravity = true; 
+  this.player.body.collideWorldBounds = true;
+  this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10);
+  this.player.body.drag.setTo(this.DRAG, 0);
+  this.player.scale.setTo(1.3, 1.3);
+
 };
 
 GameState.prototype.update = function() {  
@@ -130,9 +133,9 @@ GameState.prototype.update = function() {
   this.game.physics.arcade.collide(this.player, this.blockRed, onRed, null, this);
   this.game.physics.arcade.overlap(this.player, this.flag, onFlag, null, this);
 
-  if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+  if (leftInputIsActive()) {
     this.player.body.acceleration.x = -this.ACCELERATION;
-  } else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+  } else if (rightInputIsActive()) {
     this.player.body.acceleration.x = this.ACCELERATION;
   } else {
       this.player.body.acceleration.x = 0;
@@ -157,6 +160,25 @@ GameState.prototype.update = function() {
         this.flagDestroy = true;
       }
   }
+
+  function leftInputIsActive() {
+    var isActive = false;
+
+    isActive = this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT);
+    isActive |= (this.game.input.activePointer.isDown &&
+        this.game.input.activePointer.x < this.game.width/4);
+
+    return isActive;
+  }
+    function rightInputIsActive () {
+    var isActive = false;
+
+    isActive = this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
+    isActive |= (this.game.input.activePointer.isDown &&
+        this.game.input.activePointer.x > this.game.width/2 + this.game.width/4);
+
+    return isActive;
+}
 
   function onRed (obj1, obj2) {
     game.stage.backgroundColor = '#c90000';

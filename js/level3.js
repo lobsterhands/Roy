@@ -30,8 +30,8 @@ GameState.prototype.create = function() {
   ]);
   // Movement constants
   this.MAX_SPEED = 250;
-  this.ACCELERATION = 300;
-  this.DRAG = 500;
+  this.ACCELERATION = 350;
+  this.DRAG = 750;
   this.GRAVITY = 670;
   this.JUMP_SPEED = -350;
   game.time.deltaCap = 0.02;    
@@ -46,15 +46,11 @@ GameState.prototype.create = function() {
     this.ground.add(groundBlock);
   }
   
-
-  // ***********************
-  // LEVEL TWO
-  // ***********************
   this.flag = game.add.group();
   this.flag.createMultiple(1, 'flag');
   for (var i = 0; i < 1; i++) {
     // var flag = this.game.add.sprite(0, 86, 'flag');
-    var flag = this.game.add.sprite(game.width-28, 38, 'flag');
+    var flag = this.game.add.sprite(game.width-28, 88, 'flag');
     this.game.physics.enable(flag, Phaser.Physics.ARCADE);
     flag.body.allowGravity = false;
     flag.body.immovable = true;
@@ -82,11 +78,6 @@ GameState.prototype.create = function() {
 
   this.rainbow = game.add.group();
   for (var i = 0; i < 1; i++) {
-    // rainbow = this.game.add.sprite(300, 100,'rainbow');
-    // this.game.physics.enable(rainbow, Phaser.Physics.ARCADE);
-    // rainbow.body.allowGravity = false;
-    // rainbow.body.immovable = true;
-    // this.rainbow.add(rainbow);
     rainbow1 = this.game.add.sprite(130, 200,'rainbow');
     this.game.physics.enable(rainbow1, Phaser.Physics.ARCADE);
     rainbow1.body.allowGravity = false;
@@ -94,44 +85,18 @@ GameState.prototype.create = function() {
     rainbow1.body.collideWorldBounds = true;
     this.rainbow.add(rainbow1);
 
-    rainbowFall3 = this.game.add.sprite(game.width, 70,'rainbow');
+    rainbowFall3 = this.game.add.sprite(game.width, 120,'rainbow');
     this.game.physics.enable(rainbowFall3, Phaser.Physics.ARCADE);
     rainbowFall3.body.allowGravity = false;
     rainbowFall3.body.immovable = true;
     rainbowFall3.body.collideWorldBounds = true;
     this.rainbow.add(rainbowFall3);
-    
-    // rainbow2 = this.game.add.sprite(738, 260,'rainbow');
-    // this.game.physics.enable(rainbow2, Phaser.Physics.ARCADE);
-    // rainbow2.body.allowGravity = false;
-    // rainbow2.body.immovable = true;
-    // this.rainbow.add(rainbow2);
-
-    // rainbow3 = this.game.add.sprite(798, 190,'rainbow');
-    // this.game.physics.enable(rainbow3, Phaser.Physics.ARCADE);
-    // rainbow3.body.allowGravity = false;
-    // rainbow3.body.immovable = true;
-    // this.rainbow.add(rainbow3);
-
-    // rainbow4 = this.game.add.sprite(598, 120,'rainbow');
-    // this.game.physics.enable(rainbow4, Phaser.Physics.ARCADE);
-    // rainbow4.body.allowGravity = false;
-    // rainbow4.body.immovable = true;
-    // this.rainbow.add(rainbow4);
   }
 
   this.rainbowFall = game.add.group();
   for (var i = 0; i < 1; i++) {
 
-    // rainbowFall2 = this.game.add.sprite(130, 200,'rainbowFall');
-    // this.game.physics.enable(rainbowFall2, Phaser.Physics.ARCADE);
-    // rainbowFall2.body.allowGravity = false;
-    // rainbowFall2.body.immovable = false;
-    // rainbowFall2.body.collideWorldBounds = true;
-    // this.rainbowFall.add(rainbowFall2);
-
   }
-
 
   this.blockRed = game.add.group();
   for (var i = 0; i < 1; i++) {
@@ -199,6 +164,8 @@ this.blockOrange = game.add.group();
   this.player.body.collideWorldBounds = true;
   this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10);
   this.player.body.drag.setTo(this.DRAG, 0);
+  this.player.scale.setTo(1.4, 1.4);
+
   // Show FPS
   this.game.time.advancedTiming = true;
   this.fpsText = this.game.add.text(
@@ -222,7 +189,6 @@ GameState.prototype.update = function() {
   this.game.physics.arcade.collide(this.player, this.rainbowFall);
   this.game.physics.arcade.collide(this.ground, this.rainbowFall);
   this.game.physics.arcade.collide(this.player, this.ground, onGround, null, this);
-  // this.game.physics.arcade.collide(this.player, this.blockStart, onStart, null, this);
   this.game.physics.arcade.collide(this.player, this.blockRed, onRed, null, this);
   this.game.physics.arcade.collide(this.player, this.blockOrange, onOrange, null, this);
   this.game.physics.arcade.collide(this.player, this.blockYellow, onYellow, null, this);

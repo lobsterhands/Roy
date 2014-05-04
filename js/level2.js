@@ -30,8 +30,8 @@ GameState.prototype.create = function() {
   ]);
   // Movement constants
   this.MAX_SPEED = 250;
-  this.ACCELERATION = 300;
-  this.DRAG = 500;
+  this.ACCELERATION = 350;
+  this.DRAG = 750;
   this.GRAVITY = 670;
   this.JUMP_SPEED = -350;
   game.time.deltaCap = 0.02;    
@@ -46,13 +46,15 @@ GameState.prototype.create = function() {
     this.ground.add(groundBlock);
   }
   // Create player
-  this.player = this.game.add.sprite((this.game.width/2) - 24, this.game.height - 100, 'player');
+  this.player = this.game.add.sprite((this.game.width/2) - 24, this.game.height - 113, 'player');
   this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
   this.player.body.allowGravity = true; 
   this.player.body.mass = .5;
   this.player.body.collideWorldBounds = true;
   this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10);
   this.player.body.drag.setTo(this.DRAG, 0);
+  this.player.scale.setTo(1.3, 1.3);
+
   // Show FPS
   this.game.time.advancedTiming = true;
   this.fpsText = this.game.add.text(
@@ -81,26 +83,6 @@ GameState.prototype.create = function() {
     rainbow.body.immovable = true;
     this.rainbow.add(rainbow);
   }
-
-  // this.blockWhite = game.add.group();
-  // for (var i = 0; i < 1; i++) {
-  //   blockWhite = this.game.add.sprite(480, 270,'blockWhite');      
-  //   this.game.physics.enable(blockWhite, Phaser.Physics.ARCADE);
-  //   blockWhite.body.allowGravity = false;
-  //   blockWhite.body.immovable = true;
-  //   blockWhite.body.checkCollision.left = false;
-  //   blockWhite.body.checkCollision.right = false;
-  //   this.blockWhite.add(blockWhite);
-  // }
-  // this.blockStartFill = game.add.group();
-  // for (var i = 0; i < 1; i++) {
-  //   blockStartFill = this.game.add.sprite((this.game.width/2)-32, this.game.height-114,'blockSafe');      
-  //   this.game.physics.enable(blockStartFill, Phaser.Physics.ARCADE);
-  //   blockStartFill.body.allowGravity = false;
-  //   blockStartFill.body.immovable = true;
-  //   blockStartFill.body.checkCollision.up = false;
-  //   this.blockStartFill.add(blockStartFill);
-  // }
 
   this.blockRed = game.add.group();
   for (var i = 0; i < 1; i++) {
