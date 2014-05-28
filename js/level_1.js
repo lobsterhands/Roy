@@ -15,8 +15,8 @@ var level_1 = {
     ]);
     // Movement constants
     this.MAX_SPEED = 250;
-    this.ACCELERATION = 350;
-    this.DRAG = 750;
+    this.ACCELERATION = 1500;
+    this.DRAG = 1000;
     this.GRAVITY = 670;
     this.JUMP_SPEED = -350;
     game.physics.arcade.gravity.y = this.GRAVITY;

@@ -17,11 +17,10 @@ var level_3 = {
     ]);
     // Movement constants
     this.MAX_SPEED = 250;
-    this.ACCELERATION = 350;
-    this.DRAG = 750;
+    this.ACCELERATION = 1500;
+    this.DRAG = 1000;
     this.GRAVITY = 670;
     this.JUMP_SPEED = -350;
-    game.time.deltaCap = 0.02;    
     game.physics.arcade.gravity.y = this.GRAVITY;
     // Create some ground for the player to walk on
     this.ground = this.game.add.group();
